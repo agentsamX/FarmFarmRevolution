@@ -61,7 +61,6 @@ public class FarmPlot : MonoBehaviour
 
     public void SetSeed(Seed newSeed)
     {
-        Debug.Log ("Setting Seed!@!!!!@!@!@!@!@");
         curSeed = newSeed;
     }
 
