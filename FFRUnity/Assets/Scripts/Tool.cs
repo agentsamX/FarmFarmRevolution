@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class Tool
 {
-   //Just marks an object as interactable
+    public virtual void InteractWithPlot()
+    {
+
+    }
 }

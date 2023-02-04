@@ -4,12 +4,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
+    public enum Tasks
+    {
+        Water,
+        Till,
+        Fertilize
+    }
+
+    
+
+
     private Rigidbody2D Playerrigidbody;
     public float PlayerSpeed;
     private PlayerInputActions _playerInputActions;
     private Vector2 moveInput;
-[SerializeField]
+
+
     public Seed currentSeed;
+    public Tool currentTool;
     
     private void Awake() 
     {
@@ -32,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate() 
     {
         moveInput = _playerInputActions.Player_Actions.MovementAxis.ReadValue<Vector2>();
-        Playerrigidbody.velocity = moveInput;
+        Playerrigidbody.velocity = moveInput * PlayerSpeed;
 
         switch (moveInput) //rotates the player to face the right way
         {
@@ -50,19 +62,31 @@ public class PlayerController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0,0,0);
             break;
         }
-        Debug.Log(currentSeed);
+
+        Debug.Log(currentTool);
+
     }
     public void PickupSeed(InputAction.CallbackContext context)
     {
-        RaycastHit2D pickupHit;
-        pickupHit = Physics2D.Raycast(transform.position, transform.right, 1.5f); //.right gets rotated to front of character
-        if (pickupHit.collider.GetComponent<Interactable>() != null)
+        if (!context.started)   return;
+
+        RaycastHit2D pickupHit = Physics2D.Raycast(transform.position, transform.right, 5f, ~(1 << 2) ); //.right gets rotated to front of character
+        
+        if (pickupHit.collider != null && pickupHit.collider.GetComponent<Interactable>() != null)
         {
             SeedPickupStation station = pickupHit.collider.GetComponent<SeedPickupStation>();
             //has interactible component
             if (station != null)
             {
                 station.GivePlayerSeed(gameObject);
+            }
+            else
+            {
+                ToolPickupStation station1 = pickupHit.collider.GetComponent<ToolPickupStation>();
+                if (station1 != null)
+                {
+                station1.GiveTool(this);
+                }
             }
         }
     }
