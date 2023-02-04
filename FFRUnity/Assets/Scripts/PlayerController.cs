@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float PlayerSpeed;
     private PlayerInputActions _playerInputActions;
     private Vector2 moveInput;
+[SerializeField]
+    public Seed currentSeed;
     
     private void Awake() 
     {
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0,0,0);
             break;
         }
-
+        Debug.Log(currentSeed);
     }
     public void PickupSeed(InputAction.CallbackContext context)
     {
@@ -65,6 +67,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Seed GetCurrentSeed()
+    {
+        return currentSeed;
+    }
+
+    public void SetCurrentSeed(Seed newSeed)
+    {
+        currentSeed = newSeed;
+    }
 
 
     void OnDisable() 
