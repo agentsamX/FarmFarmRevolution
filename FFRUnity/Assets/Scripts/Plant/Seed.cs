@@ -13,7 +13,7 @@ public class Seed
         Fertilize
     }
     private float score;
-    public Stack<Tasks> tasksToDo;
+    public Stack<Tasks> tasksToDo = new Stack<Tasks>();
 
     public void SetUpTasks(Tasks newTasks)
     {
