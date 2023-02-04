@@ -22,6 +22,7 @@ public class FarmPlot : MonoBehaviour
     }
     private void Update()
     {
+        curSeed = new Tomato();
         Debug.Log(curSeed);
         switch (curSeed.GetTasks())
         {
