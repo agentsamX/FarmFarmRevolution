@@ -8,7 +8,6 @@ public class TomatoPickupStation : SeedPickupStation
 
     public override void GivePlayerSeed(GameObject player)
     {
-          Debug.Log("ahahahahaghahahahahahahaha");
         Vector3 pos = player.transform.position;
         pos.z -= 0.1f;
         Instantiate(seedVisualPrefab, pos, Quaternion.identity, player.transform); //create visual

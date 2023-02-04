@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
             break;
         }
 
+        Debug.Log(currentSeed);
         Debug.Log(currentTool);
 
     }
