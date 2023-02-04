@@ -12,14 +12,12 @@ public class Seed
         Till,
         Fertilize
     }
-
     private float score;
-    private Stack<Tasks> tasks;
-
+    public Stack<Tasks> tasksToDo;
 
     public void SetUpTasks(Tasks newTasks)
     {
-        tasks.Push(newTasks);
+        tasksToDo.Push(newTasks);
     }
 
     public void SetScore(float newScore)
@@ -34,11 +32,11 @@ public class Seed
 
     public Tasks GetTasks() 
     {
-        return tasks.Peek();
+        return tasksToDo.Peek();
     }
 
     public void CompleteTask()
     {
-        tasks.Pop();
+        tasksToDo.Pop();
     }
 }

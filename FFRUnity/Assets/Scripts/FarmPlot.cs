@@ -15,6 +15,11 @@ public class FarmPlot : MonoBehaviour
     public SpriteRenderer water;
     public SpriteRenderer task;
 
+
+    private void Awake()
+    {
+        curSeed = new Tomato();
+    }
     private void Update()
     {
         Debug.Log(curSeed);
@@ -22,12 +27,15 @@ public class FarmPlot : MonoBehaviour
         {
             case Seed.Tasks.Water:
                 water.enabled = true;
+                ResetSprites();
                 break;
                 case Seed.Tasks.Fertilize:
                 fert.enabled = true;
+                ResetSprites();
                 break;
                 case Seed.Tasks.Till: 
                 till.enabled = true;
+                ResetSprites();
                 break;
                 default:
                 if (curSeed == prevSeed)
@@ -40,10 +48,38 @@ public class FarmPlot : MonoBehaviour
                 }
                 break;
         }
+
+        if (curSeed != null)
+        {
+            task.enabled = true;
+        }
+        else
+        {
+            task.enabled = false;
+        }
     }
 
     public void SetSeed(Seed newSeed)
     {
         curSeed = newSeed;
+    }
+
+    private void ResetSprites()
+    {
+        switch (curSeed.GetTasks())
+        {
+            case Seed.Tasks.Water:
+                fert.enabled = false;
+                till.enabled = false;
+                break;
+                case Seed.Tasks.Fertilize : 
+                water.enabled = false;
+                till.enabled = false;
+                break;
+                case Seed.Tasks.Till:
+                water.enabled = false;
+                fert.enabled = false;
+                break;
+        }
     }
 }
