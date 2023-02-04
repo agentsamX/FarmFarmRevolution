@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Corn : Seed
 {
-    public override void Setup()
+    public Corn()
     {
-        base.Setup();
-        curSeed = this;
-        SetUpTasks(1);
-        SetUpTasks(2);
-        SetUpTasks(3);
+        SetUpTasks(Tasks.Till);
+        SetUpTasks(Tasks.Fertilize);
+        SetScore(200);
     }
 }

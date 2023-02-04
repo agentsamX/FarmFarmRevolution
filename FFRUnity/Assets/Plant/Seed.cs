@@ -6,26 +6,39 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Seed
 {
+    public enum Tasks
+    {
+        Water,
+        Till,
+        Fertilize
+    }
+
     private float score;
-    private List<int> tasks;
+    private Stack<Tasks> tasks;
 
-    public Seed prevSeed;
-    public Seed curSeed;
 
-    public virtual void Setup() { }
-
-    public Seed GetSeed()
+    public void SetUpTasks(Tasks newTasks)
     {
-        return curSeed;
+        tasks.Push(newTasks);
     }
 
-    public Seed GetLastSeed()
+    public void SetScore(float newScore)
     {
-        return prevSeed;
+        score = newScore;
     }
 
-    public void SetUpTasks(int newTasks)
+    public float GetScore()
     {
-        tasks.Add(newTasks);
+        return score;
+    }
+
+    public Tasks GetTasks() 
+    {
+        return tasks.Peek();
+    }
+
+    public void CompleteTask()
+    {
+        tasks.Pop();
     }
 }
