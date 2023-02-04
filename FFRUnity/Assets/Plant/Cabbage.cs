@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Cabbage : Seed
 {
-    public override void Setup()
+    public Cabbage()
     {
-        base.Setup();
-        curSeed = this;
-        SetUpTasks(1);
-        SetUpTasks(2);
-        SetUpTasks(3);
+        SetUpTasks(Tasks.Till);
+        SetUpTasks(Tasks.Water);
+        SetUpTasks(Tasks.Fertilize);
+        SetScore(300);
     }
 }
