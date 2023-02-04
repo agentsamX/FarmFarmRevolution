@@ -4,34 +4,38 @@ using UnityEngine;
 
 public class FarmPlot : MonoBehaviour
 {
-    public Seed currentSeed;
+    public Seed prevSeed;
+    public Seed curSeed;
 
     private void Update()
     {
-        Debug.Log(currentSeed);
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        Debug.Log(curSeed);
+        switch (curSeed.GetTasks())
         {
-            currentSeed = new Tomato();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentSeed = new Corn();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentSeed = new Cabbage();
-        }
-
-        switch (currentSeed)
-        {
-            case Tomato:
-                    break;
-            case Corn:
+            case Seed.Tasks.Water:
+                
                 break;
-                case Cabbage:
+                case Seed.Tasks.Fertilize: 
+                
+                break;
+                case Seed.Tasks.Till: 
+                
+                break;
+                default:
+                if (curSeed == prevSeed)
+                {
+
+                }
+                else
+                {
+
+                }
                 break;
         }
+    }
+
+    public void SetSeed(Seed newSeed)
+    {
+        curSeed = newSeed;
     }
 }

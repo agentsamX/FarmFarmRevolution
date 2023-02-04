@@ -6,12 +6,9 @@ using UnityEngine;
 
 public class Tomato : Seed
 {
-    public override void Setup()
+    public Tomato()
     {
-        base.Setup();
-        curSeed = this;
-        SetUpTasks(1);
-        SetUpTasks(2);
-        SetUpTasks(3);
+        SetUpTasks(Tasks.Water);
+        SetScore(100);
     }
 }
