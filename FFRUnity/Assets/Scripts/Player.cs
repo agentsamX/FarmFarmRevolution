@@ -30,6 +30,24 @@ public class Player : MonoBehaviour
     {
         moveInput = _movementActions.Player_Actions.MovementAxis.ReadValue<Vector2>();
         Playerrigidbody.velocity = moveInput;
+
+        switch (moveInput)
+        {
+            case Vector2 v when v.Equals(Vector2.down):
+            transform.localEulerAngles = new Vector3(0,0,270);
+            break;
+
+            case Vector2 v when v.Equals(Vector2.up):
+            transform.localEulerAngles = new Vector3(0,0,90);
+            break;
+            case Vector2 v when v.Equals(Vector2.left):
+            transform.localEulerAngles = new Vector3(0,0,180);
+            break;
+             case Vector2 v when v.Equals(Vector2.right):
+            transform.localEulerAngles = new Vector3(0,0,0);
+            break;
+        }
+
     }
 
     void OnDisable() 
