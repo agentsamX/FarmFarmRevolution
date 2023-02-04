@@ -19,7 +19,7 @@ public class Seed
 
     public void SetUpTasks(Tasks newTasks)
     {
-        tasks.Push(newTasks);
+       // tasks.Push(newTasks);
     }
 
     public void SetScore(float newScore)
