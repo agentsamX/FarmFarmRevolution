@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D Playerrigidbody;
     public float PlayerSpeed;
-    private Move _movementActions;
+    private PlayerInputActions _playerInputActions;
     private Vector2 moveInput;
     
     private void Awake() 
     {
-        _movementActions = new Move();
+        _playerInputActions = new PlayerInputActions();
         Playerrigidbody = GetComponent<Rigidbody2D>();
     }
 
     void OnEnable()
     {
-        _movementActions.Player_Actions.Enable();
+        _playerInputActions.Player_Actions.Enable();
+        _playerInputActions.Player_Actions.PickupSeed.Enable();
     }
 
     // Start is called before the first frame update
@@ -28,10 +29,10 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        moveInput = _movementActions.Player_Actions.MovementAxis.ReadValue<Vector2>();
+        moveInput = _playerInputActions.Player_Actions.MovementAxis.ReadValue<Vector2>();
         Playerrigidbody.velocity = moveInput;
 
-        switch (moveInput)
+        switch (moveInput) //rotates the player to face the right way
         {
             case Vector2 v when v.Equals(Vector2.down):
             transform.localEulerAngles = new Vector3(0,0,270);
@@ -49,10 +50,26 @@ public class Player : MonoBehaviour
         }
 
     }
+    public void PickupSeed(InputAction.CallbackContext context)
+    {
+        RaycastHit2D pickupHit;
+        pickupHit = Physics2D.Raycast(transform.position, transform.right, 1.5f); //.right gets rotated to front of character
+        if (pickupHit.collider.GetComponent<Interactable>() != null)
+        {
+            SeedPickupStation station = pickupHit.collider.GetComponent<SeedPickupStation>();
+            //has interactible component
+            if (station != null)
+            {
+                station.GivePlayerSeed(gameObject);
+            }
+        }
+    }
+
+
 
     void OnDisable() 
     {
-          _movementActions.Player_Actions.Disable();
+          _playerInputActions.Player_Actions.Disable();
     }
 
 }

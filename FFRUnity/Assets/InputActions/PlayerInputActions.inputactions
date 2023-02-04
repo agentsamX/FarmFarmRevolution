@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PickupSeed",
+                    "type": "Button",
+                    "id": "8f36c3df-16d2-4625-b335-fa52b75c2500",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -70,6 +79,17 @@
                     "action": "MovementAxis",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "51acf795-70fc-4315-8110-ae9e8a95bd75",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickupSeed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
