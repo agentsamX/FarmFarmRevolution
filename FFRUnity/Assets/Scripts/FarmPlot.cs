@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class FarmPlot : MonoBehaviour
 {
+
+    public UIScript uI;
     public Seed prevSeed;
     public Seed curSeed;
     private ParticleSystem particle;
@@ -23,6 +25,7 @@ public class FarmPlot : MonoBehaviour
     private void Awake()
     {
         particle= GetComponent<ParticleSystem>();
+        uI = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIScript>();
     }
     private void Update()
     {
@@ -42,17 +45,25 @@ public class FarmPlot : MonoBehaviour
                     till.enabled = true;
                     ResetSprites();
                     break;
-            }
-            if (curSeed.tasksToDo.Count.Equals(null))
-            {
-                ResetSprites();
-                curSeed = null;
+                case Tasks.None:
+                    if (prevSeed != curSeed)
+                    {
+                        uI.AddScore(curSeed.GetScore());
+                    }
+                    else
+                    {
+                        uI.AddScore(curSeed.GetScore() / 2);
+                    }
+                    prevSeed = curSeed;
+                    ResetSprites();
+                    curSeed= null;
+                    break;
             }
                 task.enabled = true;
         }
         else
         {
-            task.enabled = false;
+        task.enabled= false;
         }
     }
 
@@ -78,19 +89,12 @@ public class FarmPlot : MonoBehaviour
                 water.enabled = false;
                 fert.enabled = false;
                 break;
-            default:
+            case Tasks.None:
                 water.enabled = false;
                 fert.enabled = false;
                 till.enabled = false;
                 task.enabled = false;
                 break;
-        }
-        if (curSeed.tasksToDo.Count.Equals(null))
-        {
-            water.enabled = false;
-            fert.enabled = false;
-            till.enabled = false;
-            task.enabled = false;
         }
     }
 

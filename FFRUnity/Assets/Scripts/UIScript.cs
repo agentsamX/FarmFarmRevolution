@@ -33,14 +33,19 @@ public class UIScript : MonoBehaviour
         }
     }
 
-    void AddScore(int addAmount)
+    public void AddScore(int addAmount)
     {
         score+=addAmount;
         scoreText.text = "Score : " + score;
     }
 
-    void AddTime(int addAmount)
+    public void AddTime(int addAmount)
     {
         addedTime += addAmount;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }
