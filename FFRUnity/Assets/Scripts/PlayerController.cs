@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
             if (farmplot.curSeed == null)
             {
                 InteractHint.text = "Press E to plant";
+                
             }
             else if (farmplot.curSeed.GetTasks() == Tasks.Fertilize && currentTool == Tasks.Fertilize) 
             {
@@ -154,6 +155,11 @@ public class PlayerController : MonoBehaviour
                 farmplot.SetSeed(currentSeed);
                 CinemachineShake.Instance.ShakeCamera(20, 0.25f);
                 currentSeed = null; //Erase seed from player inv
+                GameObject[] gos = GameObject.FindGameObjectsWithTag("PickedupPlant");
+                foreach ( GameObject g in gos)
+                {
+                    Destroy(g);
+                }
             }
             else
             {
