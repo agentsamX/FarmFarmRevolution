@@ -12,17 +12,17 @@ public class ToolPickupStation : MonoBehaviour
     {
         if (isWatering)
         {
-            thisPlayer.currentTool = new Watering();
+            thisPlayer.currentTool = Tasks.Water;
         }
         else
          if (isTilling)
         {
-            thisPlayer.currentTool = new Till();
+            thisPlayer.currentTool = Tasks.Till;
         }
         else
          if (isFertilizer)
         {
-            thisPlayer.currentTool = new Fertilizer();
+            thisPlayer.currentTool = Tasks.Fertilize;
         }
     }
 

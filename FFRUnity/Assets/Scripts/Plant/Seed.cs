@@ -4,14 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
+public enum Tasks
+{
+    Water,
+    Till,
+    Fertilize
+}
+
 public class Seed
 {
-    public enum Tasks
-    {
-        Water,
-        Till,
-        Fertilize
-    }
     private float score;
     public Stack<Tasks> tasksToDo = new Stack<Tasks>();
 
