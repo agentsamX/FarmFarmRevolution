@@ -49,10 +49,18 @@ public class FarmPlot : MonoBehaviour
                     if (prevSeed != curSeed)
                     {
                         uI.AddScore(curSeed.GetScore());
+                        if (uI.GetScore() > 0)
+                        {
+                            uI.AddTime(100);
+                        }
                     }
                     else
                     {
                         uI.AddScore(curSeed.GetScore() / 2);
+                        if (uI.GetScore() > 0)
+                        {
+                            uI.AddTime(100);
+                        }
                     }
                     prevSeed = curSeed;
                     ResetSprites();

@@ -46,6 +46,6 @@ public class UIScript : MonoBehaviour
 
     public int GetScore()
     {
-        return score;
+        return score - ((score % 1000) * 1000);
     }
 }
