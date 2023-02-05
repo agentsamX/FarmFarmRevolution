@@ -76,51 +76,6 @@ public class PlayerController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0,0,0);
             break;
         }
-        
-        RaycastHit2D pickupHit = Physics2D.Raycast(transform.position, transform.right, 2f, ~(1 << 2) );
-        //update hint
-         InteractHint.text = "";
-
-        if (pickupHit.collider.TryGetComponent<SeedPickupStation>(out SeedPickupStation seedStation))
-        {
-            InteractHint.text = seedStation.GetHintText();
-        }
-        else if (pickupHit.collider.TryGetComponent<ToolPickupStation>(out ToolPickupStation toolPickupStation))
-        {
-            InteractHint.text = toolPickupStation.GetToolHint();
-        }
-        else if (pickupHit.collider.TryGetComponent<FarmPlot>(out FarmPlot farmplot))
-        {
-            if (farmplot.curSeed == null)
-            {
-                InteractHint.text = "Press E to plant";
-            }
-            else if (farmplot.curSeed.GetTasks() == Tasks.Fertilize && currentTool is Tasks.Fertilize) 
-            {
-                 InteractHint.text = "Press E to Fertilize";
-            }
-            else if (farmplot.curSeed.GetTasks() == Tasks.Water && currentTool is Tasks.Water) 
-            {
-                InteractHint.text = "Press E to Water";
-            }
-             else if (farmplot.curSeed.GetTasks() == Tasks.Till && currentTool is Tasks.Till) 
-            {
-                InteractHint.text = "Press E to Till";
-            }
-        }
-      
-
-/*
-        if (moveInput.x <= -0.01f)
-        {
-          
-        }
-        else
-        {
-            playerSprite.flipX = false;
-        }
-       */
-    
 
     }
     public void PickupSeed(InputAction.CallbackContext context)

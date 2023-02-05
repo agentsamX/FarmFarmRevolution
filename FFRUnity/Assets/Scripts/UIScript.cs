@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UIScript : MonoBehaviour
 {
@@ -24,13 +23,7 @@ public class UIScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        int time = startTime - (int)Time.timeSinceLevelLoad + addedTime;
-        timeText.text = "Time : " + time;
-        if (time <= 0)
-        {
-            PlayerPrefs.SetInt("LastScore", score);
-            SceneManager.LoadScene("GameOverScene");
-        }
+        timeText.text = "Time : " + (startTime - (int)Time.timeSinceLevelLoad + addedTime);
     }
 
     public void AddScore(float addAmount)
