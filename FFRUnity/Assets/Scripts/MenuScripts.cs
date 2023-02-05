@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MenuScripts : MonoBehaviour
 {
     public GameObject titleText;
     public Material textMat;
+    public TMP_Text HSText;
     [SerializeField]private float minPow;
     [SerializeField]private float maxPow;
     private float t;
@@ -13,7 +15,9 @@ public class MenuScripts : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         //textMat=titleText.GetComponent<Material>();
+        //textMat=titleText.GetComponent<Material>();
+        HSText.text = "High Score : " + PlayerPrefs.GetInt("BestScore", 0);
+
     }
 
     // Update is called once per frame
