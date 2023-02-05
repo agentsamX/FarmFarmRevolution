@@ -6,10 +6,11 @@ public class SeedPickupStation : MonoBehaviour
 {
     public static string HintText;
     
-    public string GetHintText()
+    public virtual string GetHintText()
     {
-        return HintText;
+        return "";
     }
+
     public virtual void GivePlayerSeed(GameObject player)
     {}
 
