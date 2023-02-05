@@ -15,7 +15,8 @@ public class TomatoPickupStation : SeedPickupStation
     {
         Vector3 pos = player.transform.position;
         pos.z -= 0.1f;
-        Instantiate(seedVisualPrefab, pos, Quaternion.identity, player.transform); //create visual
+        GameObject Visual = Instantiate(seedVisualPrefab, pos, Quaternion.identity, player.transform); //create visual
+        Visual.tag = "PickedupPlant";
         player.GetComponent<PlayerController>().SetCurrentSeed(new Tomato());
     }
 }
