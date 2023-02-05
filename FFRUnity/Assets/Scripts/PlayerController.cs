@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             InteractHint.text = toolPickupStation.GetToolHint();
         }
-        else if (Physics2D.OverlapCircle(new Vector3(this.transform.position.x, this.transform.position.y - 0.25f), 0.001f, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot))
+        else if (Physics2D.OverlapCircle(new Vector2(this.transform.position.x, this.transform.position.y - 1f), 0.001f, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot))
         {
             if (farmplot.curSeed == null)
             {
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             toolPickupStation.GiveTool(this);
         }
-        else if (Physics2D.OverlapCircle(new Vector3(this.transform.position.x, this.transform.position.y - 0.25f), 0.001f, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot))
+        else if (Physics2D.OverlapCircle(new Vector2(this.transform.position.x, this.transform.position.y - 1f), 0.001f, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot))
         {
             if (farmplot.curSeed == null && currentSeed != null)
             {
