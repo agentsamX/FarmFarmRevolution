@@ -5,9 +5,9 @@ using UnityEngine;
 public class CornPickupStation : SeedPickupStation
 {
     public GameObject seedVisualPrefab;
-
-  private void Start() {
-        SeedPickupStation.HintText = "Press E to pick up Corn";
+ public override string GetHintText()
+    {
+        return "Press E to pick up Corn";
     }
 
     public override void GivePlayerSeed(GameObject player)
