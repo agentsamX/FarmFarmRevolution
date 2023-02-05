@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class TomatoPickupStation : SeedPickupStation
 {
-  
     public GameObject seedVisualPrefab;
-
-    private void Start() {
-        SeedPickupStation.HintText = "Press E to pick up Tomato";
-    }
 
     public override void GivePlayerSeed(GameObject player)
     {
