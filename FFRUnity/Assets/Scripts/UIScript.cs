@@ -10,7 +10,7 @@ public class UIScript : MonoBehaviour
     public TMP_Text timeText;
     public int startTime;
     private int addedTime;
-    private int score = 0;
+    private float score = 0;
 
 
     // Start is called before the first frame update
@@ -26,14 +26,19 @@ public class UIScript : MonoBehaviour
         timeText.text = "Time : " + (startTime - (int)Time.timeSinceLevelLoad + addedTime);
     }
 
-    void AddScore(int addAmount)
+    public void AddScore(float addAmount)
     {
         score+=addAmount;
         scoreText.text = "Score : " + score;
     }
 
-    void AddTime(int addAmount)
+    public void AddTime(int addAmount)
     {
         addedTime += addAmount;
+    }
+
+    public float GetScore() 
+    {
+        return score;
     }
 }

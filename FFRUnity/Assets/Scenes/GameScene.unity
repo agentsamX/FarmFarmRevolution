@@ -10611,7 +10611,7 @@ GameObject:
   - component: {fileID: 1773140551}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10713,7 +10713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1332018220}
   timeText: {fileID: 172617888}
-  startTime: 200
+  startTime: 100
 --- !u!1001 &1824795342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11679,5 +11679,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8614103235828024098, guid: 4886da2341b931a429c52d881f29e343, type: 3}
+      propertyPath: uI
+      value: 
+      objectReference: {fileID: 1773140549}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4886da2341b931a429c52d881f29e343, type: 3}

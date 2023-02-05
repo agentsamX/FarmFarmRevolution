@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class FarmPlot : MonoBehaviour
 {
+    public UIScript uI;
     public Seed prevSeed;
     public Seed curSeed;
     private ParticleSystem particle;
@@ -22,6 +23,7 @@ public class FarmPlot : MonoBehaviour
     private void Awake()
     {
         particle= GetComponent<ParticleSystem>();
+        uI = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIScript>();
     }
     private void Update()
     {
@@ -42,6 +44,15 @@ public class FarmPlot : MonoBehaviour
                     ResetSprites();
                     break;
                     case Tasks.None:
+                    if (prevSeed != curSeed)
+                    {
+                        uI.AddScore(curSeed.GetScore());
+                    }
+                    else
+                    {
+                        uI.AddScore(curSeed.GetScore() / 2);
+                    }
+                    prevSeed = curSeed;
                     ResetSprites();
                     curSeed = null;
                     break;

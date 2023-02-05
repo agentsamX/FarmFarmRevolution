@@ -5,9 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    
-
-
     private Rigidbody2D Playerrigidbody;
     public float PlayerSpeed;
     private PlayerInputActions _playerInputActions;
