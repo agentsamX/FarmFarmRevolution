@@ -41,11 +41,10 @@ public class FarmPlot : MonoBehaviour
                     till.enabled = true;
                     ResetSprites();
                     break;
-            }
-            if (curSeed.tasksToDo.Count.Equals(null))
-            {
-                ResetSprites();
-                curSeed = null;
+                    case Tasks.None:
+                    ResetSprites();
+                    curSeed = null;
+                    break;
             }
                 task.enabled = true;
         }

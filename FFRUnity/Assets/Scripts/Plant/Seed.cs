@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public enum Tasks
 {
+    None,
     Water,
     Till,
     Fertilize
@@ -33,7 +35,12 @@ public class Seed
 
     public Tasks GetTasks() 
     {
-        return tasksToDo.Peek();
+        if (tasksToDo.Any())
+        {
+            return tasksToDo.Peek();
+        }
+        else
+            return Tasks.None;
     }
 
     public void CompleteTask()
