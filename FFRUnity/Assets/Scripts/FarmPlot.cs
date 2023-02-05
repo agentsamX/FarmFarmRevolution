@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class FarmPlot : MonoBehaviour
 {
     public Seed prevSeed;
@@ -123,4 +124,5 @@ public class FarmPlot : MonoBehaviour
             check.enabled = false;
         }
     }
+
 }

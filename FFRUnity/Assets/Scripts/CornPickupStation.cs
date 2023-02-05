@@ -6,6 +6,10 @@ public class CornPickupStation : SeedPickupStation
 {
     public GameObject seedVisualPrefab;
 
+  private void Start() {
+        SeedPickupStation.HintText = "Press E to pick up Corn";
+    }
+
     public override void GivePlayerSeed(GameObject player)
     {
         Vector3 pos = player.transform.position;
