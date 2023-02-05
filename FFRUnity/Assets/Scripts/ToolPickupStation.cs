@@ -8,6 +8,16 @@ public class ToolPickupStation : MonoBehaviour
     public bool isTilling;
     public bool isFertilizer;
 
+    public string GetToolHint()
+    {
+      //  return 
+        if (isWatering) return "Pick up Watering Can";
+          if (isTilling) return "Pick up Till";
+            if (isFertilizer) return "Pick up Fertilizer";
+
+        return "Pick up tool";
+    }
+
     public void GiveTool(PlayerController thisPlayer)
     {
         if (isWatering)

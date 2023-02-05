@@ -85,14 +85,15 @@ public class PlayerController : MonoBehaviour
         
         RaycastHit2D pickupHit = Physics2D.Raycast(transform.position, transform.right, 2f, ~(1 << 2) );
         //update hint
-         
+         InteractHint.text = "";
+
         if (pickupHit.collider.TryGetComponent<SeedPickupStation>(out SeedPickupStation seedStation))
         {
             InteractHint.text = seedStation.GetHintText();
         }
         else if (pickupHit.collider.TryGetComponent<ToolPickupStation>(out ToolPickupStation toolPickupStation))
         {
-           // InteractHint.text = toolPickupStation.Name;
+            InteractHint.text = toolPickupStation.GetToolHint();
         }
         else if (pickupHit.collider.TryGetComponent<FarmPlot>(out FarmPlot farmplot))
         {
@@ -112,10 +113,6 @@ public class PlayerController : MonoBehaviour
             {
                 InteractHint.text = "Press E to Till";
             }
-        }
-        else if (pickupHit.collider == null)
-        {
-            InteractHint.text = "";
         }
       
 
