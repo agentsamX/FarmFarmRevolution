@@ -44,6 +44,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""6253502d-3c21-465f-9ff7-5b499d5e44ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -103,6 +112,61 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""751aa6f7-b0d0-48cb-9686-cf48cea8efaa"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementAxis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""7be75781-87ec-4c16-aca8-d210a1c2cc3c"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""97232dd3-6a3f-494e-8a58-cb9cd00fc577"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4d2afb28-37c4-4afe-80ee-2be15b8b76a9"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""80f39f21-d4c4-412d-95cf-52c7ccddf554"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""51acf795-70fc-4315-8110-ae9e8a95bd75"",
                     ""path"": ""<Keyboard>/e"",
@@ -110,6 +174,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PickupSeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3ad35ba-559d-4021-a342-16fd8880755a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickupSeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd1aab92-717f-4705-980e-9db9c989f009"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e16e5a6-1aff-42ce-bfd8-88317a07ce31"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -122,6 +219,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Actions = asset.FindActionMap("Player_Actions", throwIfNotFound: true);
         m_Player_Actions_MovementAxis = m_Player_Actions.FindAction("MovementAxis", throwIfNotFound: true);
         m_Player_Actions_PickupSeed = m_Player_Actions.FindAction("PickupSeed", throwIfNotFound: true);
+        m_Player_Actions_Sprint = m_Player_Actions.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,12 +281,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IPlayer_ActionsActions m_Player_ActionsActionsCallbackInterface;
     private readonly InputAction m_Player_Actions_MovementAxis;
     private readonly InputAction m_Player_Actions_PickupSeed;
+    private readonly InputAction m_Player_Actions_Sprint;
     public struct Player_ActionsActions
     {
         private @PlayerInputActions m_Wrapper;
         public Player_ActionsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MovementAxis => m_Wrapper.m_Player_Actions_MovementAxis;
         public InputAction @PickupSeed => m_Wrapper.m_Player_Actions_PickupSeed;
+        public InputAction @Sprint => m_Wrapper.m_Player_Actions_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Player_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,6 +304,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @PickupSeed.started -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnPickupSeed;
                 @PickupSeed.performed -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnPickupSeed;
                 @PickupSeed.canceled -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnPickupSeed;
+                @Sprint.started -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_Player_ActionsActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_Player_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -214,6 +317,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @PickupSeed.started += instance.OnPickupSeed;
                 @PickupSeed.performed += instance.OnPickupSeed;
                 @PickupSeed.canceled += instance.OnPickupSeed;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -222,5 +328,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnMovementAxis(InputAction.CallbackContext context);
         void OnPickupSeed(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

@@ -1,16 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    public enum Tasks
-    {
-        Water,
-        Till,
-        Fertilize
-    }
-
     
 
 
@@ -18,11 +12,14 @@ public class PlayerController : MonoBehaviour
     public float PlayerSpeed;
     private PlayerInputActions _playerInputActions;
     private Vector2 moveInput;
-
+    public ParticleSystem walkParticle;
 
     public Seed currentSeed;
-    public Tool currentTool;
-    
+    public Tasks currentTool;
+
+    FarmPlot[] onPlot;
+    public LayerMask plotLayer;
+
     private void Awake() 
     {
         _playerInputActions = new PlayerInputActions();
@@ -41,9 +38,29 @@ public class PlayerController : MonoBehaviour
       
     }
 
+    private void Update()
+    {
+    }
+
     private void FixedUpdate() 
     {
         moveInput = _playerInputActions.Player_Actions.MovementAxis.ReadValue<Vector2>();
+
+        if(moveInput != new Vector2(0,0) && !walkParticle.isPlaying)
+        {
+            Debug.Log("Start");
+            walkParticle.Play();
+        }
+        else if (moveInput == new Vector2(0,0))
+        {
+            walkParticle.Stop();
+        }
+
+        if (_playerInputActions.Player_Actions.Sprint.IsPressed())
+        {
+            Playerrigidbody.velocity = moveInput * (PlayerSpeed * 2);
+        }
+        else
         Playerrigidbody.velocity = moveInput * PlayerSpeed;
 
         switch (moveInput) //rotates the player to face the right way
@@ -62,9 +79,6 @@ public class PlayerController : MonoBehaviour
             transform.localEulerAngles = new Vector3(0,0,0);
             break;
         }
-
-        Debug.Log(currentSeed);
-        Debug.Log(currentTool);
 
     }
     public void PickupSeed(InputAction.CallbackContext context)
@@ -90,6 +104,20 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        
+        
+        if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer) && currentSeed != null)
+        {
+            Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().SetSeed(currentSeed);
+            CinemachineShake.Instance.ShakeCamera(20,0.25f);
+            currentSeed = null;
+        }
+        else if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer) && Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().curSeed.GetTasks() == currentTool)
+        {
+            Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().DoTasks();
+            CinemachineShake.Instance.ShakeCamera(20, 0.25f);
+            currentSeed = null;
+        }
     }
 
     public Seed GetCurrentSeed()
@@ -107,18 +135,9 @@ public class PlayerController : MonoBehaviour
     {
           _playerInputActions.Player_Actions.Disable();
     }
-
-    private void OnTriggerEnter2D(Collider2D other) 
-    {   
-        
-        FarmPlot farmplot = other.gameObject.GetComponent<FarmPlot>();
-
-        if (farmplot != null)
-        {
-            Debug.Log("Hit Farmplot");
-            farmplot.SetSeed(currentSeed);
-            currentSeed = null;
-        }    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(this.transform.position,0.25f);
     }
-
 }
