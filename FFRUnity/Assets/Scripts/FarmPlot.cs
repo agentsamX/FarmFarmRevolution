@@ -18,11 +18,10 @@ public class FarmPlot : MonoBehaviour
 
     private void Awake()
     {
-        curSeed = new Tomato();
+
     }
     private void Update()
     {
-        curSeed = new Tomato();
         Debug.Log(curSeed);
         switch (curSeed.GetTasks())
         {
@@ -83,4 +82,6 @@ public class FarmPlot : MonoBehaviour
                 break;
         }
     }
+
+   
 }

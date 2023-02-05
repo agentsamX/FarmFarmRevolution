@@ -108,4 +108,17 @@ public class PlayerController : MonoBehaviour
           _playerInputActions.Player_Actions.Disable();
     }
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {   
+        
+        FarmPlot farmplot = other.gameObject.GetComponent<FarmPlot>();
+
+        if (farmplot != null)
+        {
+            Debug.Log("Hit Farmplot");
+            farmplot.SetSeed(currentSeed);
+            currentSeed = null;
+        }    
+    }
+
 }
