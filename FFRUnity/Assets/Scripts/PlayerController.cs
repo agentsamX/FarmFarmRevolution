@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
         else
         Playerrigidbody.velocity = moveInput * PlayerSpeed;
 
+        animator.SetFloat("X_Velocity", Mathf.Abs(Playerrigidbody.velocity.x));
+
         switch (moveInput) //rotates the player to face the right way
         {
             case Vector2 v when v.Equals(Vector2.down):
@@ -95,21 +97,21 @@ public class PlayerController : MonoBehaviour
         {
             InteractHint.text = toolPickupStation.GetToolHint();
         }
-        else if (pickupHit.collider.TryGetComponent<FarmPlot>(out FarmPlot farmplot))
+        else if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot))
         {
             if (farmplot.curSeed == null)
             {
                 InteractHint.text = "Press E to plant";
             }
-            else if (farmplot.curSeed.GetTasks() == Tasks.Fertilize && currentTool is Tasks.Fertilize) 
+            else if (farmplot.curSeed.GetTasks() == Tasks.Fertilize && currentTool == Tasks.Fertilize) 
             {
                  InteractHint.text = "Press E to Fertilize";
             }
-            else if (farmplot.curSeed.GetTasks() == Tasks.Water && currentTool is Tasks.Water) 
+            else if (farmplot.curSeed.GetTasks() == Tasks.Water && currentTool == Tasks.Water) 
             {
                 InteractHint.text = "Press E to Water";
             }
-             else if (farmplot.curSeed.GetTasks() == Tasks.Till && currentTool is Tasks.Till) 
+             else if (farmplot.curSeed.GetTasks() == Tasks.Till && currentTool == Tasks.Till) 
             {
                 InteractHint.text = "Press E to Till";
             }
@@ -143,31 +145,35 @@ public class PlayerController : MonoBehaviour
         {
             toolPickupStation.GiveTool(this);
         }
-        else if (pickupHit.collider.TryGetComponent<FarmPlot>(out FarmPlot farmplot))
+        else if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer))
         {
-            if (farmplot.curSeed == null)
+            Physics2D.OverlapCircle(this.transform.position, 1, plotLayer).TryGetComponent<FarmPlot>(out FarmPlot farmplot);
+            if (farmplot.curSeed == null && currentSeed != null)
             {
                 animator.SetTrigger("PlantingTrigger");
                 farmplot.SetSeed(currentSeed);
+                CinemachineShake.Instance.ShakeCamera(20, 0.25f);
                 currentSeed = null; //Erase seed from player inv
             }
             else
             {
-                Seed seed = farmplot.curSeed;
-                 if (seed.GetTasks() == Tasks.Fertilize && currentTool is Tasks.Fertilize)
+                 if (farmplot.curSeed.GetTasks() == currentTool)
                  {
                     animator.SetTrigger("FertilizeTrigger");
-                    seed.CompleteTask();
+                    CinemachineShake.Instance.ShakeCamera(20, 0.25f);
+                    farmplot.DoTasks();
                  }
-                 else if (seed.GetTasks() == Tasks.Water && currentTool is Tasks.Water)
+                 else if (farmplot.curSeed.GetTasks() == currentTool)
                  {
                     animator.SetTrigger("WateringTrigger");
-                    seed.CompleteTask();
+                    CinemachineShake.Instance.ShakeCamera(20, 0.25f);
+                    farmplot.DoTasks();
                  }
-                 else if(seed.GetTasks() == Tasks.Till && currentTool is Tasks.Till)
+                 else if(farmplot.curSeed.GetTasks() == currentTool)
                  {
-                    animator.SetTrigger("FertilizeTrigger");
-                    seed.CompleteTask();
+                    animator.SetTrigger("TillTrigger");
+                    CinemachineShake.Instance.ShakeCamera(20, 0.25f);
+                    farmplot.DoTasks();
                  }
             }
             
@@ -191,20 +197,6 @@ public class PlayerController : MonoBehaviour
                 station1.GiveTool(this);
                 }
             }
-        }
-        
-        
-        if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer) && currentSeed != null)
-        {
-            Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().SetSeed(currentSeed);
-            CinemachineShake.Instance.ShakeCamera(20,0.25f);
-            currentSeed = null;
-        }
-        else if (Physics2D.OverlapCircle(this.transform.position, 1, plotLayer) && Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().curSeed.GetTasks() == currentTool)
-        {
-            Physics2D.OverlapCircle(this.transform.position, 0.25f, plotLayer).GetComponent<FarmPlot>().DoTasks();
-            CinemachineShake.Instance.ShakeCamera(20, 0.25f);
-            currentSeed = null;
         }
 
 
